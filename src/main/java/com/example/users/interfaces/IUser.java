@@ -7,4 +7,6 @@ import com.example.users.entities.UsersEntity;
 public interface IUser {
     public void insertUser(UserCreateDTO user);
     public UsersEntity login(UserLoginDTO user);
+
+    public void updateUser(UserCreateDTO user);
 }

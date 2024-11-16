@@ -10,11 +10,16 @@ import org.springframework.stereotype.Service;
 public class UserService implements IUser {
     @Override
     public void insertUser(UserCreateDTO user) {
-    
+
     }
 
     @Override
     public UsersEntity login(UserLoginDTO user) {
         return null;
+    }
+
+    @Override
+    public void updateUser(UserCreateDTO user) {
+
     }
 }
