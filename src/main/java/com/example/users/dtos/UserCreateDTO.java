@@ -13,10 +13,13 @@ public class UserCreateDTO {
 
     private String password;
 
-    public UserCreateDTO(String name, String email, String password) {
+    private String document;
+
+    public UserCreateDTO(String name, String email, String password, String document) {
         this.name = name;
         this.email = email;
-        setPassword(password);
+        this.password = password;
+        this.document = document;
     }
 
     public String getName() {
@@ -40,13 +43,14 @@ public class UserCreateDTO {
     }
 
     public void setPassword(String password) {
-        if (password == null || password.isBlank()) {
-            password = RandomStringGenerator.generateRandomString(16);
-        }
-        try {
-            this.password = GenerateHash.generateHash(password);
-        } catch (Exception e) {
-            this.password = "password";
-        }
+        this.password = password;
+    }
+
+    public String getDocument() {
+        return document;
+    }
+
+    public void setDocument(String document) {
+        this.document = document;
     }
 }

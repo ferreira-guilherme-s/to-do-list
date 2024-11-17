@@ -7,6 +7,8 @@ import com.example.users.exceptions.InvalidCredentialsException;
 import com.example.users.interfaces.IUser;
 import com.example.users.repositories.UserRepository;
 import com.example.users.utils.GenerateHash;
+import com.example.users.utils.PasswordGenerate;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,20 +18,30 @@ import java.util.Optional;
 @Service
 public class UserService implements IUser {
     private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
     public void insertUser(UserCreateDTO user) {
+        try {
+            user.setPassword(PasswordGenerate.generatePassword(user.getPassword()));
 
+            UsersEntity userEntity = modelMapper.map(user, UsersEntity.class);
+
+            userRepository.save(userEntity);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public Optional<UsersEntity> login(UserLoginDTO body) {
-        Optional<UsersEntity> userOpt = userRepository.login(body.getEmail(), body.getPassword());
+        Optional<UsersEntity> userOpt = userRepository.findByEmail(body.getEmail());
 
         if (userOpt.isEmpty()) {
             return Optional.empty();
