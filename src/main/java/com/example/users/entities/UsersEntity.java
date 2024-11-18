@@ -1,10 +1,13 @@
 package com.example.users.entities;
 
+import com.example.To_do_list.entities.ToDoEntity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -33,6 +36,18 @@ public class UsersEntity {
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ToDoEntity> tasks = new ArrayList<>();
+
+    public UsersEntity() {}
+
+    public UsersEntity(String name, String email, String document, String password) {
+        this.name = name;
+        this.email = email;
+        this.document = document;
+        this.password = password;
+    }
 
     public UUID getId() {
         return id;

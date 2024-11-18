@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EntityScan(basePackages = "com.example.users.entities")
+@EntityScan(basePackages = {"com.example.users.entities", "com.example.To_do_list.entities"})
 @EnableJpaRepositories("com.example.users.repositories")
 @ComponentScan(basePackages = {"com.example.To_do_list", "com.example.users", "com.example.config"})
 public class ToDoListApplication {
