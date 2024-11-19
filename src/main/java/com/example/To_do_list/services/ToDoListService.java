@@ -34,10 +34,11 @@ public class ToDoListService implements IToDoList {
             if (userOpt.isEmpty()) {
                 return;
             }
-
-            task.setUserId(userId);
+            UsersEntity user = userOpt.get();
 
             ToDoEntity taskEntity = modelMapper.map(task, ToDoEntity.class);
+
+            taskEntity.setUser(user);
 
             toDoRepository.save(taskEntity);
         } catch (Exception e) {

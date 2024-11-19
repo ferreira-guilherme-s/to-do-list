@@ -79,4 +79,11 @@ public class ToDoEntity {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    public UsersEntity getUser() {
+        return user;
+    }
+    public void setUser(UsersEntity user) {
+        this.user = user;
+    }
 }
