@@ -37,8 +37,8 @@ public class UsersEntity {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<ToDoEntity> tasks = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<ToDoEntity> tasks;
 
     public UsersEntity() {}
 
@@ -103,5 +103,14 @@ public class UsersEntity {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public List<ToDoEntity> getTasks() {
+        return tasks;
+    }
+
+
+    public void setTasks(List<ToDoEntity> tasks) {
+        this.tasks = tasks;
     }
 }

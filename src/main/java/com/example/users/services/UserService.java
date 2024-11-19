@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService implements IUser {
@@ -63,5 +64,15 @@ public class UserService implements IUser {
     @Override
     public void updateUser(UserCreateDTO user) {
 
+    }
+
+    @Override
+    public Optional<UsersEntity> getUserById(UUID id) {
+        Optional<UsersEntity> userOpt = userRepository.findById(id);
+        if (userOpt.isEmpty()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(userOpt.get());
     }
 }

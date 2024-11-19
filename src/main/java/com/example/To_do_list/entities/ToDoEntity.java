@@ -19,6 +19,7 @@ public class ToDoEntity {
     @Column(name = "annotation", nullable = false)
     private String annotation;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private StatusTask status;
 
@@ -30,7 +31,7 @@ public class ToDoEntity {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private UsersEntity user;
 
@@ -38,7 +39,7 @@ public class ToDoEntity {
 
     public ToDoEntity(String annotation, StatusTask status, UsersEntity user) {
         this.annotation = annotation;
-        this.status = status;
+        this.status = status != null ? status : StatusTask.WAITING;
         this.user = user;
     }
 
